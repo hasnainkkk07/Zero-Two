@@ -126,7 +126,7 @@ def gban(update: Update, context: CallbackContext):
         return
 
     if int(user_id) in WOLVES:
-        message.reply_text("ᴛʜᴀᴛ's ᴀɴ EXON! ᴛʜᴇʏ ᴄᴀɴɴᴏᴛ ʙᴇ ʙᴀɴɴᴇᴅ!")
+        message.reply_text("ᴛʜᴀᴛ's ᴀɴ WᴏF Assᴏᴄɪᴀᴛɪᴏɴ! ᴛʜᴇʏ ᴄᴀɴɴᴏᴛ ʙᴇ ʙᴀɴɴᴇᴅ!")
         return
 
     if user_id == bot.id:
