@@ -335,8 +335,7 @@ def stats(update, context):
         )
     except BaseException:
         update.effective_message.reply_text(
-            (
-                (
+            (                
                     (
                         "\n*ʙᴏᴛ sᴛᴀᴛɪsᴛɪᴄs*:\n"
                         + "\n".join(mod.__stats__() for mod in STATS)
