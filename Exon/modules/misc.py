@@ -179,51 +179,51 @@ def info(update: Update, context: CallbackContext):  # sourcery no-metrics
 def get_user_info(chat: Chat, user: User) -> str:
     bot = dispatcher.bot
     text = (
-        f"╒═══「<b> ᴀɴᴀʟʏᴢᴇᴅ ʀᴇsᴜʟᴛs:</b> 」\n"
-        f"✦ ᴜsᴇʀ ID: <code>{user.id}</code>\n"
-        f"✦ ғɪʀsᴛ ɴᴀᴍᴇ: {html.escape(user.first_name)}"
+        f"╒═══「<b> Appraisal Results:</b> 」\n"
+        f"✦ ID: <code>{user.id}</code>\n"
+        f"✦ First Name: {html.escape(user.first_name)}"
     )
     if user.last_name:
-        text += f"\n✦ ʟᴀsᴛ ɴᴀᴍᴇ: {html.escape(user.last_name)}"
+        text += f"\n✦ Last Name: {html.escape(user.last_name)}"
     if user.username:
-        text += f"\n✦ ᴜsᴇʀɴᴀᴍᴇ: @{html.escape(user.username)}"
+        text += f"\n✦ Username: @{html.escape(user.username)}"
     text += f"\n✦ ᴜsᴇʀ ʟɪɴᴋ: {mention_html(user.id, 'link')}"
     with contextlib.suppress(Exception):
         if spamwtc := sw.get_ban(int(user.id)):
-            text += "<b>\n\nsᴘᴀᴍᴡᴀᴛᴄʜ:\n</b>"
-            text += "<b>ᴛʜɪs ᴘᴇʀsᴏɴ is ʙᴀɴɴᴇᴅ ɪɴ sᴘᴀᴍᴡᴀᴛᴄʜ!</b>"
-            text += f"\nʀᴇᴀsᴏɴ: <pre>{spamwtc.reason}</pre>"
-            text += "\nAppeal ᴀᴛ @SpamWatchSupport"
+            text += "<b>\n\nSpamWatch:\n</b>"
+            text += "<b>This Person is Banned in SpamWatch!</b>"
+            text += f"\nReason: <pre>{spamwtc.reason}</pre>"
+            text += "\nAppeal at @SpamWatchSupport"
         else:
-            text += "<b>\n\nSpamWatch:</b> Not banned"
+            text += "<b>\n\nSpamWatch:</b> Not Banned"
     disaster_level_present = False
     num_chats = sql.get_user_num_chats(user.id)
-    text += f"\n\n<b>ᴄʜᴀᴛ ᴄᴏᴜɴᴛ</b>: <code>{num_chats}</code>"
+    text += f"\n\n<b>Chat Count</b>: <code>{num_chats}</code>"
     with contextlib.suppress(BadRequest):
         user_member = chat.get_member(user.id)
         if user_member.status == "administrator":
             result = bot.get_chat_member(chat.id, user.id)
             if result.custom_title:
                 text += (
-                    f"\n\nᴛʜɪs ᴜsᴇʀ ʜᴏʟᴅs ᴛʜᴇ ᴛɪᴛʟᴇ <b>{result.custom_title}</b> ʜᴇʀᴇ."
+                    f"\n\nThis User Holds The Title <b>{result.custom_title}</b> Here."
                 )
     if user.id == OWNER_ID:
-        text += "\n\n<code>ᴏᴜʀ ᴄᴜᴛᴇ ᴏᴡɴᴇʀ </code> :3"
+        text += "\n\n<code>Our Cute Owner </code> :3"
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\n<code>ᴛʜɪs ᴜsᴇʀ ɪs a ᴘᴀʀᴛ ᴏғ ᴏᴜʀ ғᴀᴍɪʟʏ</code> "
+        text += "\n\n<code>This User is a Part of Our Family</code> "
         disaster_level_present = True
     elif user.id in SUDO_USERS:
-        text += "\n\n<code>ᴏɴᴇ ᴏғ ᴏᴜʀ ʙᴇsᴛᴏ ғʀɪᴇɴᴅᴏs, ᴛᴏᴜᴄʜ ʜɪᴍ ᴀɴᴅ ʏᴏᴜ ᴀʀᴇ ᴅᴇᴀᴅ ᴍᴇᴀᴛ</code>"
+        text += "\n\n<code>One of Our Besto Friendo, Touch Him And You Are Dead Meat</code>"
         disaster_level_present = True
     elif user.id in SUPPORT_USERS:
-        text += "\n\n<code>ᴛʜɪs user is ᴏᴜʀ ғʀɪᴇɴᴅ</code> ✨"
+        text += "\n\n<code>This is Our Best Friend</code> ✨"
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\n<code>ᴏɴᴇ ᴏғ ᴍʏ ᴄʟᴀssᴍᴀᴛᴇs</code> :p"
+        text += "\n\n<code>One of My Classmates</code> :p"
         disaster_level_present = True
     elif user.id in WHITELIST_USERS:
-        text += "\n\n<code>ᴍᴇᴍʙᴇʀ ᴏғ WᴏF Assᴏᴄɪᴀᴛɪᴏɴ, ᴛᴏᴛᴀʟʟʏ ᴄᴏᴏʟ ʀɪɢʜᴛ ?</code>"
+        text += "\n\n<code>Member Of WᴏF Assᴏᴄɪᴀᴛɪᴏɴ, Totally Cool Right ?</code>"
         disaster_level_present = True
     if disaster_level_present:
         text += ' [<a href="https://t.me/WOFBotsUpdates/2">?</a>]'
