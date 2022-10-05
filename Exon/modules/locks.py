@@ -43,7 +43,7 @@ from Exon.modules.helper_funcs.chat_status import (
     is_bot_admin,
     user_admin,
 )
-from Exon.modules.sql_2.approve_sql import is_approved
+from Exon.modules.sql.approve_sql import is_approved
 from Exon.modules.log_channel import loggable
 from Exon.modules.connection import connected
 from Exon.modules.helper_funcs.alternate import send_message, typing_action
