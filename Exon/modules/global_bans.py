@@ -370,11 +370,11 @@ def ungban(update: Update, context: CallbackContext):
 
         except BadRequest as excp:
             if excp.message not in UNGBAN_ERRORS:
-                message.reply_text(f"ᴄᴏᴜʟᴅ ɴᴏᴛ ᴜɴ-ɢᴀɴ ᴅᴜᴇ ᴛᴏ: {excp.message}")
+                message.reply_text(f"ᴄᴏᴜʟᴅ ɴᴏᴛ ᴜɴ-ɢʙᴀɴ ᴅᴜᴇ ᴛᴏ: {excp.message}")
                 if EVENT_LOGS:
                     bot.send_message(
                         EVENT_LOGS,
-                        f"ᴄᴏᴜʟᴅ ɴᴏᴛ ᴜɴ-ʜᴀɴ ᴅᴜᴇ ᴛᴏ: {excp.message}",
+                        f"ᴄᴏᴜʟᴅ ɴᴏᴛ ᴜɴ-ɢʙᴀɴ ᴅᴜᴇ ᴛᴏ: {excp.message}",
                         parse_mode=ParseMode.HTML,
                     )
                 else:
