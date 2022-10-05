@@ -49,7 +49,7 @@ from Exon.__main__ import TOKEN, USER_INFO
 import Exon.modules.sql.userinfo_sql as sql
 from Exon.modules.disable import DisableAbleCommandHandler
 from Exon.modules.sql.global_bans_sql import is_user_gbanned
-from Exon.modules.redis.afk_redis import is_user_afk, afk_reason
+from Exon.modules.sql.afk_redis import is_user_afk, afk_reason
 from Exon.modules.sql.users_sql import get_user_num_chats
 from Exon.modules.helper_funcs.extraction import extract_user
 from Exon import telethn
