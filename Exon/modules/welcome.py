@@ -95,7 +95,7 @@ WHITELISTED = [OWNER_ID] + DEV_USERS + DRAGONS + DEMONS + WOLVES
 def send(update, message, keyboard, backup_message):
     chat = update.effective_chat
     cleanserv = sql.clean_service(chat.id)
-    reply = update.message.message_id
+    reply = None
     # Clean service welcome
     if cleanserv:
         try:
