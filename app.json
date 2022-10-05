@@ -67,7 +67,7 @@
       "OWNER_ID": {
          "description": "Your Telegram User ID as an integer.",
          "required": true,
-         "value": "1452219013"
+         "value": "5667156680"
       },
       "BOT_ID": {
          "description": "Your Telegram Bot ID.",
@@ -111,7 +111,7 @@
       "DEV_USERS": {
          "description": "Enter the IDs of the users who are the Developers of the Bot. If you are newbie and want help from us Itself, then keep the IDs as they are and add yours",
          "required": false,
-         "value": "1452219013"
+         "value": "5667156680"
       },
       "SPAMWATCH_API": {
          "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
@@ -121,7 +121,7 @@
       "DRAGONS": {
          "description": "A space separated list of user IDs who you want to assign as sudo users.",
          "required": false,
-         "value": "1452219013"
+         "value": "5667156680"
       },
       "STRICT_GBAN": {
          "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
@@ -130,17 +130,17 @@
       "DEMONS": {
          "description": "A space separated list of user IDs who can use Gban From Your Bot",
          "required": false,
-         "value": "1452219013"
+         "value": "5667156680"
       },
       "TIGERS": {
          "description": "A space separated list of user IDs who can not be banned by your Bot",
          "required": false,
-         "value": "1452219013"
+         "value": "5667156680"
       },
       "WOLVES": {
          "description": "A space separated list of user IDs who you want to assign as whitelisted - can't be banned with your bot.",
          "required": false,
-         "value": "1452219013"
+         "value": "5667156680"
       },
       "ENV": {
          "description": "Setting this to ANYTHING will enable environment variables. Leave it as it is",
