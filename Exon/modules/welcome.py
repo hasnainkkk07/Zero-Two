@@ -1324,7 +1324,7 @@ dispatcher.add_handler(RESET_GOODBYE)
 dispatcher.add_handler(CLEAN_WELCOME)
 dispatcher.add_handler(WELCOME_HELP)
 dispatcher.add_handler(WELCOMEMUTE_HANDLER)
-# dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
+dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
 dispatcher.add_handler(BUTTON_VERIFY_HANDLER)
 dispatcher.add_handler(WELCOME_MUTE_HELP)
 dispatcher.add_handler(CAPTCHA_BUTTON_VERIFY_HANDLER)
@@ -1343,7 +1343,7 @@ __handlers__ = [
     CLEAN_WELCOME,
     WELCOME_HELP,
     WELCOMEMUTE_HANDLER,
-    # CLEAN_SERVICE_HANDLER,
+    CLEAN_SERVICE_HANDLER,
     BUTTON_VERIFY_HANDLER,
     CAPTCHA_BUTTON_VERIFY_HANDLER,
     WELCOME_MUTE_HELP,
