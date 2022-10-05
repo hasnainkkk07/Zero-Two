@@ -1328,8 +1328,8 @@ RESET_GOODBYE = CommandHandler(
 WELCOMEMUTE_HANDLER = CommandHandler(
     "welcomemute", welcomemute, filters=Filters.chat_type.groups, run_async=True
 )
-# CLEAN_SERVICE_HANDLER = CommandHandler(
-# "cleanservice", cleanservice, filters=Filters.chat_type.groups, run_async=True
+CLEAN_SERVICE_HANDLER = CommandHandler(
+    "cleanservice", cleanservice, filters=Filters.chat_type.groups, run_async=True
 # )
 CLEAN_WELCOME = CommandHandler(
     "cleanwelcome", clean_welcome, filters=Filters.chat_type.groups, run_async=True
