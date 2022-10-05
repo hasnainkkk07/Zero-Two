@@ -394,7 +394,7 @@ def ungban(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
     else:
-        send_to_list(bot, DRAGONS + DEMONS, "ᴜɴ-ɢᴀɴ ᴄᴏᴍᴘʟᴇᴛᴇ! ")
+        send_to_list(bot, DRAGONS + DEMONS, "ᴜɴ-ɢʙᴀɴ ᴄᴏᴍᴘʟᴇᴛᴇ! ")
 
     end_time = time.time()
     ungban_time = round((end_time - start_time), 2)
