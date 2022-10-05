@@ -223,7 +223,7 @@ def get_user_info(chat: Chat, user: User) -> str:
         text += "\n\n<code>ᴏɴᴇ ᴏғ ᴍʏ ᴄʟᴀssᴍᴀᴛᴇs</code> :p"
         disaster_level_present = True
     elif user.id in WHITELIST_USERS:
-        text += "\n\n<code>ᴍᴇᴍʙᴇʀ ᴏғ Exon ᴛᴇᴄʜ, ᴛᴏᴛᴀʟʟʏ ᴄᴏᴏʟ ʀɪɢʜᴛ ?</code>"
+        text += "\n\n<code>ᴍᴇᴍʙᴇʀ ᴏғ WᴏF Assᴏᴄɪᴀᴛɪᴏɴ, ᴛᴏᴛᴀʟʟʏ ᴄᴏᴏʟ ʀɪɢʜᴛ ?</code>"
         disaster_level_present = True
     if disaster_level_present:
         text += ' [<a href="https://t.me/WOFBotsUpdates/2">?</a>]'
