@@ -169,11 +169,11 @@ def __user_info__(user_id):
         since_afk = get_readable_time(
             (time.time() - float(REDIS.get(f"afk_time_{user_id}")))
         )
-        text = "<i>ᴛʜɪs ᴜsᴇʀ ɪs ᴄᴜʀʀᴇɴᴛʟʏ ᴀғᴋ (ᴀᴡᴀʏ ғʀᴏᴍ ᴋᴇʏʙᴏᴀʀᴅ).</i>"
-        text += f"\n<i>sɪɴᴄᴇ: {since_afk}</i>"
+        text = "<i>This user is currently afk (away from keyboard).</i>"
+        text += f"\n<i>Since: {since_afk}</i>"
 
     else:
-        text = "<i>ᴛʜɪs ᴜsᴇʀ ɪs ᴄᴜʀʀᴇɴᴛʟʏ ɪsɴ'ᴛ ᴀғᴋ (ᴀᴡᴀʏ ғʀᴏᴍ ᴋᴇʏʙᴏᴀʀᴅ).</i>"
+        text = "<i>This user currently isn't afk (not away from keyboard).</i>"
     return text
 
 
