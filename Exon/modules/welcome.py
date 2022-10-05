@@ -1019,6 +1019,38 @@ def clean_welcome(update: Update, context: CallbackContext) -> str:
     else:
         update.effective_message.reply_text("I ᴜɴᴅᴇʀsᴛᴀɴᴅ 'on/yes' ᴏʀ 'off/no' only!")
         return ""
+    
+    
+def cleanservice(update: Update, context: CallbackContext) -> str:
+    args = context.args
+    chat = update.effective_chat  # type: Optional[Chat]
+    if chat.type == chat.PRIVATE:
+        curr = sql.clean_service(chat.id)
+        if curr:
+            update.effective_message.reply_text(
+                "Welcome clean service is : on", parse_mode=ParseMode.MARKDOWN
+            )
+        else:
+            update.effective_message.reply_text(
+                "Welcome clean service is : off", parse_mode=ParseMode.MARKDOWN
+            )
+
+    elif len(args) >= 1:
+        var = args[0]
+        if var in ("no", "off"):
+            sql.set_clean_service(chat.id, False)
+            update.effective_message.reply_text("Welcome clean service is : off")
+        elif var in ("yes", "on"):
+            sql.set_clean_service(chat.id, True)
+            update.effective_message.reply_text("Welcome clean service is : on")
+        else:
+            update.effective_message.reply_text(
+                "Invalid option", parse_mode=ParseMode.MARKDOWN
+            )
+    else:
+        update.effective_message.reply_text(
+            "Usage is on/yes or off/no", parse_mode=ParseMode.MARKDOWN
+        )
 
 
 def user_button(update: Update, context: CallbackContext):
