@@ -328,9 +328,8 @@ def stats(update, context):
         update.effective_message.reply_text(
             status
             + "\n*ʙᴏᴛ sᴛᴀᴛɪsᴛɪᴄs*:\n"
-            + "\n".join([mod.__stats__() for mod in STATS])
-            + "\n\n[ɢɪᴛʜᴜʙ](https://github.com/KingAbishnoi/ExonRobot) | [ᴛᴇʟᴇɢʀᴀᴍ](https://t.me/AbishnoiMF)\n\n"
-            + f"「 ʙʏ[ᴀʙɪsʜɴᴏɪ](t.me/{AKBOSS}) 」\n",
+            + "\n".join([mod.__stats__() for mod in STATS])           
+            + f"「 ʙʏ[𝒍𝒆𝒗𝒊](t.me/{AKBOSS}) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
         )
@@ -341,10 +340,8 @@ def stats(update, context):
                     (
                         "\n*ʙᴏᴛ sᴛᴀᴛɪsᴛɪᴄs*:\n"
                         + "\n".join(mod.__stats__() for mod in STATS)
-                    )
-                    + "\n\n⍙ [ɢɪᴛʜᴜʙ](https://github.com/KingAbishnoi/ExonRobot) | [ᴛᴇʟᴇɢʀᴀᴍ](https://t.me/AbishnoiMF)\n\n"
-                )
-                + f"「 ʙʏ [ᴀʙɪsʜɴᴏɪ](t.me/{AKBOSS}) 」\n"
+                    )                    
+                    + f"「 ʙʏ [𝒍𝒆𝒗𝒊](t.me/{AKBOSS}) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
