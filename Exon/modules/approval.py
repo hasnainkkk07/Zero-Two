@@ -29,7 +29,7 @@ from Exon.modules.disable import DisableAbleCommandHandler
 from Exon import dispatcher, DRAGONS
 from Exon.modules.helper_funcs.extraction import extract_user
 from telegram.ext import CallbackContext, CallbackQueryHandler, Filters
-import Exon.modules.sql_2.approve_sql as sql
+import Exon.modules.sql.approve_sql as sql
 from Exon.modules.helper_funcs.chat_status import user_admin
 from Exon.modules.log_channel import loggable
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, Update
