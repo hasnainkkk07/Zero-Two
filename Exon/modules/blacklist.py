@@ -1,47 +1,49 @@
 """
-MIT License
+STATUS: Code is working. ✅
+"""
 
-Copyright (c) 2022 Aʙɪsʜɴᴏɪ
+"""
+GNU General Public License v3.0
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Copyright (C) 2022, SOME-1HING [https://github.com/SOME-1HING]
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Credits:-
+    I don't know who originally wrote this code. If you originally wrote this code, please reach out to me. 
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import html
 import re
 
-from telegram import ChatPermissions, ParseMode
+from telegram import ParseMode, ChatPermissions
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler
+from telegram.ext import CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import mention_html
 
-import Exon.modules.sql.blacklist_sql as sql
-from Exon import LOGGER, dispatcher
-from Exon.modules.connection import connected
+import Exon.modules.sql_2.blacklist_sql as sql
+from Exon import dispatcher, LOGGER
 from Exon.modules.disable import DisableAbleCommandHandler
-from Exon.modules.helper_funcs.alternate import send_message, typing_action
 from Exon.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from Exon.modules.helper_funcs.extraction import extract_text
 from Exon.modules.helper_funcs.misc import split_message
-from Exon.modules.helper_funcs.string_handling import extract_time
 from Exon.modules.log_channel import loggable
-from Exon.modules.sql.approve_sql import is_approved
 from Exon.modules.warns import warn
+from Exon.modules.helper_funcs.string_handling import extract_time
+from Exon.modules.connection import connected
+from Exon.modules.sql_2.approve_sql import is_approved
+from Exon.modules.helper_funcs.alternate import send_message, typing_action
 
 BLACKLIST_GROUP = 11
 
@@ -53,7 +55,8 @@ def blacklist(update, context):
     user = update.effective_user
     args = context.args
 
-    if conn := connected(context.bot, update, chat, user.id, need_admin=False):
+    conn = connected(context.bot, update, chat, user.id, need_admin=False)
+    if conn:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
     else:
@@ -62,32 +65,30 @@ def blacklist(update, context):
         chat_id = update.effective_chat.id
         chat_name = chat.title
 
-    filter_list = f"ᴄᴜʀʀᴇɴᴛ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅs ɪɴ <b>{chat_name}</b>:\n"
+    filter_list = "Current blacklisted words in <b>{}</b>:\n".format(chat_name)
 
     all_blacklisted = sql.get_chat_blacklist(chat_id)
 
     if len(args) > 0 and args[0].lower() == "copy":
         for trigger in all_blacklisted:
-            filter_list += f"<code>{html.escape(trigger)}</code>\n"
+            filter_list += "<code>{}</code>\n".format(html.escape(trigger))
     else:
         for trigger in all_blacklisted:
-            filter_list += f" - <code>{html.escape(trigger)}</code>\n"
+            filter_list += " - <code>{}</code>\n".format(html.escape(trigger))
 
     # for trigger in all_blacklisted:
     #     filter_list += " - <code>{}</code>\n".format(html.escape(trigger))
 
     split_text = split_message(filter_list)
     for text in split_text:
-        if (
-            filter_list
-            == f"ᴄᴜʀʀᴇɴᴛ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅs ɪɴ <b>{html.escape(chat_name)}</b>:\n"
+        if filter_list == "Current blacklisted words in <b>{}</b>:\n".format(
+            html.escape(chat_name),
         ):
             send_message(
                 update.effective_message,
-                f"ɴᴏ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅs ɪɴ <b>{html.escape(chat_name)}</b>!",
+                "No blacklisted words in <b>{}</b>!".format(html.escape(chat_name)),
                 parse_mode=ParseMode.HTML,
             )
-
             return
         send_message(update.effective_message, text, parse_mode=ParseMode.HTML)
 
@@ -100,7 +101,8 @@ def add_blacklist(update, context):
     user = update.effective_user
     words = msg.text.split(None, 1)
 
-    if conn := connected(context.bot, update, chat, user.id):
+    conn = connected(context.bot, update, chat, user.id)
+    if conn:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
     else:
@@ -112,7 +114,7 @@ def add_blacklist(update, context):
     if len(words) > 1:
         text = words[1]
         to_blacklist = list(
-            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()},
         )
         for trigger in to_blacklist:
             sql.add_to_blacklist(chat_id, trigger.lower())
@@ -120,21 +122,27 @@ def add_blacklist(update, context):
         if len(to_blacklist) == 1:
             send_message(
                 update.effective_message,
-                f"ᴀᴅᴅᴇᴅ ʙʟᴀᴄᴋʟɪsᴛ <code>{html.escape(to_blacklist[0])}</code> ɪɴ ᴄʜᴀᴛ: <b>{html.escape(chat_name)}</b>!",
+                "Added blacklist <code>{}</code> in chat: <b>{}</b>!".format(
+                    html.escape(to_blacklist[0]),
+                    html.escape(chat_name),
+                ),
                 parse_mode=ParseMode.HTML,
             )
 
         else:
             send_message(
                 update.effective_message,
-                f"ᴀᴅᴅᴇᴅ ʙʟᴀᴄᴋʟɪsᴛ ᴛʀɪɢɢᴇʀ: <code>{len(to_blacklist)}</code> ɪɴ <b>{html.escape(chat_name)}</b>!",
+                "Added blacklist trigger: <code>{}</code> in <b>{}</b>!".format(
+                    len(to_blacklist),
+                    html.escape(chat_name),
+                ),
                 parse_mode=ParseMode.HTML,
             )
 
     else:
         send_message(
             update.effective_message,
-            "ᴛᴇʟʟ ᴍᴇ ᴡʜɪᴄʜ ᴡᴏʀᴅs ʏᴏᴜ ᴡᴏᴜʟᴅ ʟɪᴋᴇ ᴛᴏ ᴀᴅᴅ ɪɴ ʙʟᴀᴄᴋʟɪsᴛ.",
+            "Tell me which words you would like to add in blacklist.",
         )
 
 
@@ -146,7 +154,8 @@ def unblacklist(update, context):
     user = update.effective_user
     words = msg.text.split(None, 1)
 
-    if conn := connected(context.bot, update, chat, user.id):
+    conn = connected(context.bot, update, chat, user.id)
+    if conn:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
     else:
@@ -158,7 +167,7 @@ def unblacklist(update, context):
     if len(words) > 1:
         text = words[1]
         to_unblacklist = list(
-            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()},
         )
         successful = 0
         for trigger in to_unblacklist:
@@ -170,42 +179,49 @@ def unblacklist(update, context):
             if successful:
                 send_message(
                     update.effective_message,
-                    f"ʀᴇᴍᴏᴠᴇᴅ <code>{html.escape(to_unblacklist[0])}</code> ғʀᴏᴍ ʙʟᴀᴄᴋʟɪsᴛ ɪɴ <b>{html.escape(chat_name)}</b>!",
+                    "Removed <code>{}</code> from blacklist in <b>{}</b>!".format(
+                        html.escape(to_unblacklist[0]),
+                        html.escape(chat_name),
+                    ),
                     parse_mode=ParseMode.HTML,
                 )
-
             else:
                 send_message(
-                    update.effective_message, "ᴛʜɪs ɪs ɴᴏᴛ ᴀ ʙʟᴀᴄᴋʟɪsᴛ ᴛʀɪɢɢᴇʀ!"
+                    update.effective_message,
+                    "This is not a blacklist trigger!",
                 )
 
         elif successful == len(to_unblacklist):
             send_message(
                 update.effective_message,
-                f"ʀᴇᴍᴏᴠᴇᴅ <code>{successful}</code> ғʀᴏᴍ ʙʟᴀᴄᴋʟɪsᴛ ɪɴ <b>{html.escape(chat_name)}</b>!",
+                "Removed <code>{}</code> from blacklist in <b>{}</b>!".format(
+                    successful,
+                    html.escape(chat_name),
+                ),
                 parse_mode=ParseMode.HTML,
             )
 
         elif not successful:
             send_message(
                 update.effective_message,
-                "ɴᴏɴᴇ ᴏғ ᴛʜᴇsᴇ ᴛʀɪɢɢᴇʀs ᴇxɪsᴛ sᴏ ɪᴛ ᴄᴀɴ'ᴛ ʙᴇ ʀᴇᴍᴏᴠᴇᴅ.".format(
-                    successful, len(to_unblacklist) - successful
-                ),
+                "None of these triggers exist so it can't be removed.",
                 parse_mode=ParseMode.HTML,
             )
 
         else:
             send_message(
                 update.effective_message,
-                f"ʀᴇᴍᴏᴠᴇᴅ <code>{successful}</code> ғʀᴏᴍ ʙʟᴀᴄᴋʟɪsᴛ. {len(to_unblacklist) - successful} ᴅɪᴅ ɴᴏᴛ ᴇxɪsᴛ, sᴏ ᴡᴇʀᴇ ɴᴏᴛ ʀᴇᴍᴏᴠᴇᴅ.",
+                "Removed <code>{}</code> from blacklist. {} did not exist, "
+                "so were not removed.".format(
+                    successful,
+                    len(to_unblacklist) - successful,
+                ),
                 parse_mode=ParseMode.HTML,
             )
-
     else:
         send_message(
             update.effective_message,
-            "ᴛᴇʟʟ ᴍᴇ ᴡʜɪᴄʜ ᴡᴏʀᴅs ʏᴏᴜ ᴡᴏᴜʟᴅ ʟɪᴋᴇ ᴛᴏ ʀᴇᴍᴏᴠᴇ ғʀᴏᴍ ʙʟᴀᴄᴋʟɪsᴛ!",
+            "Tell me which words you would like to remove from blacklist!",
         )
 
 
@@ -227,7 +243,7 @@ def blacklist_mode(update, context):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴄᴀɴ ʙᴇ ᴏɴʟʏ ᴜsᴇᴅ ɪɴ ɢʀᴏᴜᴘ ɴᴏᴛ ɪɴ ᴘᴍ",
+                "This command can be only used in group not in PM",
             )
             return ""
         chat = update.effective_chat
@@ -235,87 +251,101 @@ def blacklist_mode(update, context):
         chat_name = update.effective_message.chat.title
 
     if args:
-        if args[0].lower() in ("off", "nothing", "no"):
-            settypeblacklist = "ᴅᴏ ɴᴏᴛʜɪɴɢ"
+        if args[0].lower() in ["off", "nothing", "no"]:
+            settypeblacklist = "do nothing"
             sql.set_blacklist_strength(chat_id, 0, "0")
-        elif args[0].lower() in ("del", "delete"):
-            settypeblacklist = "ᴡɪʟʟ ᴅᴇʟᴇᴛᴇ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴍᴇssᴀɢᴇ"
+        elif args[0].lower() in ["del", "delete"]:
+            settypeblacklist = "delete blacklisted message"
             sql.set_blacklist_strength(chat_id, 1, "0")
         elif args[0].lower() == "warn":
-            settypeblacklist = "ᴡᴀʀɴ ᴛʜᴇ sᴇɴᴅᴇʀ"
+            settypeblacklist = "warn the sender"
             sql.set_blacklist_strength(chat_id, 2, "0")
         elif args[0].lower() == "mute":
-            settypeblacklist = "ᴍᴜᴛᴇ ᴛʜᴇ sᴇɴᴅᴇʀ"
+            settypeblacklist = "mute the sender"
             sql.set_blacklist_strength(chat_id, 3, "0")
         elif args[0].lower() == "kick":
-            settypeblacklist = "ᴋɪᴄᴋ ᴛʜᴇ sᴇɴᴅᴇʀ"
+            settypeblacklist = "kick the sender"
             sql.set_blacklist_strength(chat_id, 4, "0")
         elif args[0].lower() == "ban":
-            settypeblacklist = "ʙᴀɴ ᴛʜᴇ sᴇɴᴅᴇʀ"
+            settypeblacklist = "ban the sender"
             sql.set_blacklist_strength(chat_id, 5, "0")
         elif args[0].lower() == "tban":
             if len(args) == 1:
-                teks = """ɪᴛ ʟᴏᴏᴋs ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ sᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ғᴏʀ ʙʟᴀᴄᴋʟɪsᴛ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ sᴘᴇᴄɪғɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ :, `/blacklistmode tban <timevalue>`.
-				
-    ᴇxᴀᴍᴘʟᴇs ᴏғ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4ᴍ = 4 ᴍɪɴᴜᴛᴇs, 3ʜ = 3 ʜᴏᴜʀs, 6ᴅ = 6 ᴅᴀʏs, 5ᴡ = 5 ᴡᴇᴇᴋs."""
+                teks = """It looks like you tried to set time value for blacklist but you didn't specified time; Try, `/blacklistmode tban <timevalue>`.
+
+    Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return ""
             restime = extract_time(msg, args[1])
             if not restime:
-                teks = """ɪɴᴠᴀʟɪᴅ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ!
-    ᴇxᴀᴍᴘʟᴇ ᴏғ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4ᴍ = 4 ᴍɪɴᴜᴛᴇs, 3ʜ = 3 ʜᴏᴜʀs, 6ᴅ = 6 ᴅᴀʏs, 5ᴡ = 5 ᴡᴇᴇᴋs."""
+                teks = """Invalid time value!
+    Example of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return ""
-            settypeblacklist = f"ᴛᴇᴍᴘᴏʀᴀʀɪʟʏ ʙᴀɴ ғᴏʀ {args[1]}"
+            settypeblacklist = "temporarily ban for {}".format(args[1])
             sql.set_blacklist_strength(chat_id, 6, str(args[1]))
         elif args[0].lower() == "tmute":
             if len(args) == 1:
-                teks = """It ʟᴏᴏᴋs ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ sᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ғᴏʀ ʙʟᴀᴄᴋʟɪsᴛ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ sᴘᴇᴄɪғɪᴇᴅ  ᴛɪᴍᴇ; ᴛʀʏ, `/blacklistmode tmute <timevalue>`.
-    ᴇxᴀᴍᴘʟᴇs ᴏғ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 ᴍɪɴᴜᴛᴇs, 3h = 3 ʜᴏᴜʀs, 6d = 6 ᴅᴀʏs, 5w = 5 ᴡᴇᴇᴋs."""
+                teks = """It looks like you tried to set time value for blacklist but you didn't specified  time; try, `/blacklistmode tmute <timevalue>`.
+
+    Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return ""
             restime = extract_time(msg, args[1])
             if not restime:
-                teks = """ɪɴᴠᴀʟɪᴅ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ!
-    ᴇxᴀᴍᴘʟᴇs ᴏғ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4ᴍ = 4 ᴍɪɴᴜᴛᴇs, 3ʜ = 3 ʜᴏᴜʀs, 6ᴅ = 6 ᴅᴀʏs, 5w = 5 ᴡᴇᴇᴋs."""
+                teks = """Invalid time value!
+    Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return ""
-            settypeblacklist = f"ᴛᴇᴍᴘᴏʀᴀʀɪʟʏ ᴍᴜᴛᴇ ғᴏʀ {args[1]}"
+            settypeblacklist = "temporarily mute for {}".format(args[1])
             sql.set_blacklist_strength(chat_id, 7, str(args[1]))
         else:
             send_message(
                 update.effective_message,
-                "I ᴏɴʟʏ ᴜɴᴅᴇʀsᴛᴀɴᴅ: off/del/warn/ban/kick/mute/tban/tmute!",
+                "I only understand: off/del/warn/ban/kick/mute/tban/tmute!",
             )
             return ""
         if conn:
-            text = f"ᴄʜᴀɴɢᴇᴅ ʙʟᴀᴄᴋʟɪsᴛ ᴍᴏᴅᴇ: `{settypeblacklist}` in *{chat_name}*!"
+            text = "Changed blacklist mode: `{}` in *{}*!".format(
+                settypeblacklist,
+                chat_name,
+            )
         else:
-            text = f"ᴄʜᴀɴɢᴇᴅ ʙʟᴀᴄᴋʟɪsᴛ ᴍᴏᴅᴇ: `{settypeblacklist}`!"
+            text = "Changed blacklist mode: `{}`!".format(settypeblacklist)
         send_message(update.effective_message, text, parse_mode="markdown")
-        return f"<b>{html.escape(chat.title)}:</b>\n<b>ᴀᴅᴍɪɴ:</b> {mention_html(user.id, html.escape(user.first_name))}\nᴄʜᴀɴɢᴇᴅ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛ ᴍᴏᴅᴇ. ᴡɪʟʟ {settypeblacklist}."
-
+        return (
+            "<b>{}:</b>\n"
+            "<b>Admin:</b> {}\n"
+            "Changed the blacklist mode. will {}.".format(
+                html.escape(chat.title),
+                mention_html(user.id, html.escape(user.first_name)),
+                settypeblacklist,
+            )
+        )
     getmode, getvalue = sql.get_blacklist_setting(chat.id)
     if getmode == 0:
-        settypeblacklist = "ᴅᴏ ɴᴏᴛʜɪɴɢ"
+        settypeblacklist = "do nothing"
     elif getmode == 1:
-        settypeblacklist = "ᴅᴇʟᴇᴛᴇ"
+        settypeblacklist = "delete"
     elif getmode == 2:
-        settypeblacklist = "ᴡᴀʀɴ"
+        settypeblacklist = "warn"
     elif getmode == 3:
-        settypeblacklist = "ᴍᴜᴛᴇ"
+        settypeblacklist = "mute"
     elif getmode == 4:
-        settypeblacklist = "ᴋɪᴄᴋ"
+        settypeblacklist = "kick"
     elif getmode == 5:
-        settypeblacklist = "ʙᴀɴ"
+        settypeblacklist = "ban"
     elif getmode == 6:
-        settypeblacklist = f"ᴛᴇᴍᴘᴏʀᴀʀɪʟʏ ʙᴀɴ ғᴏʀ {getvalue}"
+        settypeblacklist = "temporarily ban for {}".format(getvalue)
     elif getmode == 7:
-        settypeblacklist = f"ᴛᴇᴍᴘᴏʀᴀʀɪʟʏ ᴍᴜᴛᴇ ғᴏʀ {getvalue}"
+        settypeblacklist = "temporarily mute for {}".format(getvalue)
     if conn:
-        text = f"ᴄᴜʀʀᴇɴᴛ ʙʟᴀᴄᴋʟɪsᴛᴍᴏᴅᴇ: *{settypeblacklist}* in *{chat_name}*."
+        text = "Current blacklistmode: *{}* in *{}*.".format(
+            settypeblacklist,
+            chat_name,
+        )
     else:
-        text = f"ᴄᴜʀʀᴇɴᴛ ʙʟᴀᴄᴋʟɪsᴛᴍᴏᴅᴇ: *{settypeblacklist}*."
+        text = "Current blacklistmode: *{}*.".format(settypeblacklist)
     send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
     return ""
 
@@ -334,13 +364,10 @@ def del_blacklist(update, context):
     user = update.effective_user
     bot = context.bot
     to_match = extract_text(message)
-
     if not to_match:
         return
-
     if is_approved(chat.id, user.id):
         return
-
     getmode, value = sql.get_blacklist_setting(chat.id)
 
     chat_filters = sql.get_chat_blacklist(chat.id)
@@ -351,17 +378,22 @@ def del_blacklist(update, context):
                 if getmode == 0:
                     return
                 if getmode == 1:
-                    message.delete()
+                    try:
+                        message.delete()
+                    except BadRequest:
+                        pass
                 elif getmode == 2:
-                    message.delete()
+                    try:
+                        message.delete()
+                    except BadRequest:
+                        pass
                     warn(
                         update.effective_user,
                         chat,
-                        f"ᴜsɪɴɢ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴛʀɪɢɢᴇʀ: {trigger}",
+                        ("Using blacklisted trigger: {}".format(trigger)),
                         message,
                         update.effective_user,
                     )
-
                     return
                 elif getmode == 3:
                     message.delete()
@@ -372,15 +404,16 @@ def del_blacklist(update, context):
                     )
                     bot.sendMessage(
                         chat.id,
-                        f"ᴍᴜᴛᴇᴅ {user.first_name} ғᴏʀ ᴜsɪɴɢ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅ: {trigger}!",
+                        f"Muted {user.first_name} for using Blacklisted word: {trigger}!",
                     )
                     return
                 elif getmode == 4:
                     message.delete()
-                    if res := chat.unban_member(update.effective_user.id):
+                    res = chat.unban_member(update.effective_user.id)
+                    if res:
                         bot.sendMessage(
                             chat.id,
-                            f"ᴋɪᴄᴋᴇᴅ {user.first_name} ғᴏʀ ᴜsɪɴɢ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅ: {trigger}!",
+                            f"Kicked {user.first_name} for using Blacklisted word: {trigger}!",
                         )
                     return
                 elif getmode == 5:
@@ -388,7 +421,7 @@ def del_blacklist(update, context):
                     chat.ban_member(user.id)
                     bot.sendMessage(
                         chat.id,
-                        f"ʙᴀɴɴᴇᴅ {user.first_name} ғᴏʀ ᴜsɪɴɢ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅ: {trigger}",
+                        f"Banned {user.first_name} for using Blacklisted word: {trigger}",
                     )
                     return
                 elif getmode == 6:
@@ -397,7 +430,7 @@ def del_blacklist(update, context):
                     chat.ban_member(user.id, until_date=bantime)
                     bot.sendMessage(
                         chat.id,
-                        f"ʙᴀɴɴᴇᴅ {user.first_name} ᴜɴᴛɪʟ '{value}' ғᴏʀ ᴜsɪɴɢ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅ: {trigger}!",
+                        f"Banned {user.first_name} until '{value}' for using Blacklisted word: {trigger}!",
                     )
                     return
                 elif getmode == 7:
@@ -411,12 +444,12 @@ def del_blacklist(update, context):
                     )
                     bot.sendMessage(
                         chat.id,
-                        f"ᴍᴜᴛᴇᴅ {user.first_name} ᴜɴᴛɪʟ '{value}' for using Blacklisted word: {trigger}!",
+                        f"Muted {user.first_name} until '{value}' for using Blacklisted word: {trigger}!",
                     )
                     return
             except BadRequest as excp:
-                if excp.message != "ᴍᴇssᴀɢᴇ ᴛᴏ ᴅᴇʟᴇᴛᴇ not ғᴏᴜɴᴅ":
-                    LOGGER.exception("ᴇʀʀᴏʀ ᴡʜɪʟᴇ ᴅᴇʟᴇᴛɪɴɢ ʙʟᴀᴄᴋʟɪsᴛ ᴍᴇssᴀɢᴇ.")
+                if excp.message != "Message to delete not found":
+                    LOGGER.exception("Error while deleting blacklist message.")
             break
 
 
@@ -433,57 +466,27 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     blacklisted = sql.num_blacklist_chat_filters(chat_id)
-    return f"ᴛʜᴇʀᴇ ᴀʀᴇ {blacklisted} ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅs."
+    return "There are {} blacklisted words.".format(blacklisted)
 
 
 def __stats__():
-    return f"⍟ {sql.num_blacklist_filters()} ʙʟᴀᴄᴋʟɪsᴛ ᴛʀɪɢɢᴇʀs, ᴀᴄʀᴏss {sql.num_blacklist_filter_chats()} ᴄʜᴀᴛs."
+    return "× {} blacklist triggers, across {} chats.".format(
+        sql.num_blacklist_filters(),
+        sql.num_blacklist_filter_chats(),
+    )
 
-
-__mod_name__ = "𝙱ʟᴀᴄᴋʟɪsᴛs"
-
-__help__ = """
-
-*ʙʟᴀᴄᴋʟɪꜱᴛꜱ ᴀʀᴇ ᴜꜱᴇᴅ ᴛᴏ ꜱᴛᴏᴘ ᴄᴇʀᴛᴀɪɴ ᴛʀɪɢɢᴇʀꜱ ғʀᴏᴍ ʙᴇɪɴɢ ꜱᴀɪᴅ ɪɴ ᴀ ɢʀᴏᴜᴘ. ᴀɴʏ ᴛɪᴍᴇ ᴛʜᴇ ᴛʀɪɢɢᴇʀ ɪꜱ ᴍᴇɴᴛɪᴏɴᴇᴅ, ᴛʜᴇ ᴍᴇꜱꜱᴀɢᴇ ᴡɪʟʟ ɪᴍᴍᴇᴅɪᴀᴛᴇʟʏ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ. ᴀ ɢᴏᴏᴅ ᴄᴏᴍʙᴏ ɪs sᴏᴍᴇᴛɪᴍᴇs ᴛᴏ ᴘᴀɪʀ ᴛʜɪs ᴜᴘ ᴡɪᴛʜ ᴡᴀʀɴ ғɪʟᴛᴇʀs!*
-
-*ɴᴏᴛᴇ*: `ʙʟᴀᴄᴋʟɪsᴛs ᴅᴏ ɴᴏᴛ ᴀғғᴇᴄᴛ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴs.`
-
-✪ /blacklist*:* `ᴠɪᴇᴡ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅs.`
-
-*ᴀᴅᴍɪɴ ᴏɴʟʏ:*
-✪ /addblacklist <ᴛʀɪɢɢᴇʀs>*:* `ᴀᴅᴅ ᴀ ᴛʀɪɢɢᴇʀ ᴛᴏ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛ. ᴇᴀᴄʜ ʟɪɴᴇ is ᴄᴏɴsɪᴅᴇʀᴇᴅ ᴏɴᴇ ᴛʀɪɢɢᴇʀ, sᴏ ᴜsɪɴɢ ᴅɪғғᴇʀᴇɴᴛ ʟɪɴᴇs ᴡɪʟʟ ᴀʟʟᴏᴡ ʏᴏᴜ ᴛᴏ ᴀᴅᴅ ᴍᴜʟᴛɪᴘʟᴇ ᴛʀɪɢɢᴇʀs.`
-
-✪ /unblacklist <ᴛʀɪɢɢᴇʀs>*:* `ʀᴇᴍᴏᴠᴇ ᴛʀɪɢɢᴇʀs ғʀᴏᴍ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛ. sᴀᴍᴇ ɴᴇᴡʟɪɴᴇ ʟᴏɢɪᴄ ᴀᴘᴘʟɪᴇs ʜᴇʀᴇ, sᴏ ʏᴏᴜ ᴄᴀɴ ʀᴇᴍᴏᴠᴇ ᴍᴜʟᴛɪᴘʟᴇ ᴛʀɪɢɢᴇʀs ᴀᴛ ᴏɴᴄᴇ.`
-
-✪ /blacklistmode <off/del/warn/ban/kick/mute/tban/tmute>*:* `ᴀᴄᴛɪᴏɴ ᴛᴏ ᴘᴇʀғᴏʀᴍ ᴡʜᴇɴ sᴏᴍᴇᴏɴᴇ sᴇɴᴅs ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴡᴏʀᴅs.`
-
-`ʀʙʟᴀᴄᴋʟɪsᴛ sᴛɪᴄᴋᴇʀ ɪs ᴜsᴇᴅ ᴛᴏ sᴛᴏᴘ ᴄᴇʀᴛᴀɪɴ sᴛɪᴄᴋᴇʀs. ᴡʜᴇɴᴇᴠᴇʀ a sᴛɪᴄᴋᴇʀ ɪs sᴇɴᴛ, ᴛʜᴇ ᴍᴇssᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ɪᴍᴍᴇᴅɪᴀᴛᴇʟʏ.`
-
-*ɴᴏᴛᴇ:* `ʙʟᴀᴄᴋʟɪsᴛ sᴛɪᴄᴋᴇʀs ᴅᴏ ɴᴏᴛ ᴀғғᴇᴄᴛ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀᴅᴍɪɴ`
-
-✪ /blsticker*:* `ꜱᴇᴇ ᴄᴜʀʀᴇɴᴛ ʙʟᴀᴄᴋʟɪꜱᴛᴇᴅ ꜱᴛɪᴄᴋᴇʀ`
-
-
-✪ /addblsticker <sticker link>*:* `ᴀᴅᴅ ᴛʜᴇ ꜱᴛɪᴄᴋᴇʀ ᴛʀɪɢɢᴇʀ ᴛᴏ ᴛʜᴇ ʙʟᴀᴄᴋ ʟɪꜱᴛ. ᴄᴀɴ ʙᴇ ᴀᴅᴅᴇᴅ ᴠɪᴀ ʀᴇᴘʟʏ ꜱᴛɪᴄᴋᴇʀ`
-
-✪ /unblsticker <sticker link>*:* `ʀᴇᴍᴏᴠᴇ ᴛʀɪɢɢᴇʀꜱ ғʀᴏᴍ ʙʟᴀᴄᴋʟɪꜱᴛ. ᴛʜᴇ ꜱᴀᴍᴇ ɴᴇᴡʟɪɴᴇ ʟᴏɢɪᴄ ᴀᴘᴘʟɪᴇꜱ ʜᴇʀᴇ, ꜱᴏ ʏᴏᴜ ᴄᴀɴ ᴅᴇʟᴇᴛᴇ ᴍᴜʟᴛɪᴘʟᴇ ᴛʀɪɢɢᴇʀꜱ ᴀᴛ ᴏɴᴄᴇ`
-
-✪ /rmblsticker <sticker link>*:* `ꜱᴀᴍᴇ ᴀꜱ ᴀʙᴏᴠᴇ`
-
-✪ /blstickermode <delete/ban/tban/mute/tmute>*:* `ꜱᴇᴛꜱ ᴜᴘ ᴀ ᴅᴇғᴀᴜʟᴛ ᴀᴄᴛɪᴏɴ ᴏɴ ᴡʜᴀᴛ ᴛᴏ ᴅᴏ ɪғ ᴜꜱᴇʀꜱ ᴜꜱᴇ ʙʟᴀᴄᴋʟɪꜱᴛᴇᴅ ꜱᴛɪᴄᴋᴇʀꜱ`
-
-ɴᴏᴛᴇ:
-✪ <sticker link> `ᴄᴀɴ ʙᴇ` `https://t.me/addstickers/<sticker>` `ᴏʀ ᴊᴜꜱᴛ` `<sticker>` `ᴏʀ ʀᴇᴘʟʏ ᴛᴏ ᴛʜᴇ ꜱᴛɪᴄᴋᴇʀ ᴍᴇꜱꜱᴀɢᴇ`
-
-"""
 
 BLACKLIST_HANDLER = DisableAbleCommandHandler(
-    "blacklist", blacklist, pass_args=True, admin_ok=True, run_async=True
+    "blacklist",
+    blacklist,
+    pass_args=True,
+    admin_ok=True,
+    run_async=True,
 )
-ADD_BLACKLIST_HANDLER = CommandHandler("addblacklist", add_blacklist, run_async=True)
-UNBLACKLIST_HANDLER = CommandHandler("unblacklist", unblacklist, run_async=True)
+ADD_BLACKLIST_HANDLER = CommandHandler("addblacklist", add_blacklist, run_async=True, filters=Filters.chat_type.groups)
+UNBLACKLIST_HANDLER = CommandHandler("unblacklist", unblacklist, run_async=True, filters=Filters.chat_type.groups)
 BLACKLISTMODE_HANDLER = CommandHandler(
-    "blacklistmode", blacklist_mode, pass_args=True, run_async=True
+    "blacklistmode", blacklist_mode, pass_args=True, run_async=True, filters=Filters.chat_type.groups
 )
 BLACKLIST_DEL_HANDLER = MessageHandler(
     (Filters.text | Filters.command | Filters.sticker | Filters.photo)
@@ -506,3 +509,31 @@ __handlers__ = [
     BLACKLISTMODE_HANDLER,
     (BLACKLIST_DEL_HANDLER, BLACKLIST_GROUP),
 ]
+
+__mod_name__ = "Blacklists 📓"
+
+__help__ = """
+
+Blacklists are used to stop certain triggers from being said in a group. Any time the trigger is mentioned, the message will immediately be deleted. A good combo is sometimes to pair this up with warn filters!
+
+*NOTE*: Blacklists do not affect group admins.
+
+❂ `/blacklist`*:* View the current blacklisted words.
+
+Admin only:
+❂ `/addblacklist` <triggers>*:* Add a trigger to the blacklist. Each line is considered one trigger, so using different lines will allow you to add multiple triggers.
+❂ `/unblacklist` <triggers>*:* Remove triggers from the blacklist. Same newline logic applies here, so you can remove multiple triggers at once.
+❂ `/blacklistmode` <off/del/warn/ban/kick/mute/tban/tmute>*:* Action to perform when someone sends blacklisted words.
+
+Blacklist sticker is used to stop certain stickers. Whenever a sticker is sent, the message will be deleted immediately.
+*NOTE:* Blacklist stickers do not affect the group admin
+❂ `/blsticker`*:* See current blacklisted sticker
+*Only admin:*
+❂ `/addblsticker` <sticker link>*:* Add the sticker trigger to the black list. Can be added via reply sticker
+❂ `/unblsticker` <sticker link>*:* Remove triggers from blacklist. The same newline logic applies here, so you can delete multiple triggers at once
+❂ `/rmblsticker` <sticker link>*:* Same as above
+❂ `/blstickermode` <delete/ban/tban/mute/tmute>*:* sets up a default action on what to do if users use blacklisted stickers
+Note:
+❂ <sticker link> can be `https://t.me/addstickers/<sticker>` or just `<sticker>` or reply to the sticker message
+
+"""
