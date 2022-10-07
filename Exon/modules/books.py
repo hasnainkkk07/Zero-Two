@@ -76,7 +76,7 @@ async def _(event):
         await telethn.send_file(
             event.chat_id,
             "book.txt",
-            caption=f"**BOOKS GATHERED SUCCESSFULLY!\n\nBY @ABISHNOIMF **",
+            caption=f"**BOOKS GATHERED SUCCESSFULLY!**",
         )
         os.remove("book.txt")
         await KkK.delete()
