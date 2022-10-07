@@ -32,19 +32,9 @@ async def carbon_func(_, message):
     carbon.close()
 
 
-@register(pattern="^/repo$")
-async def _(event):
-    loda = "➥ [EXON](https://github.com/TEAM-ABG/ExonRobot)"
-    lund = await event.reply(loda)
-    await asyncio.sleep(10)
-    await event.delete()
-    await lund.delete()
-
-
 __mod_name__ = "𝙲ᴀʀʙᴏɴ"
 
 __help__ = """
 
 /carbon *:* ᴍᴀᴋᴇs ᴄᴀʀʙᴏɴ ғᴏʀ ʀᴇᴘʟɪᴇᴅ ᴛᴇxᴛ
-/repo *:*🌟
  """
