@@ -187,7 +187,7 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        message.reply_text("ᴛʜɪs ᴜsᴇʀ ɪs ᴀʟʀᴇᴀᴅʏ ᴀ ᴛʀᴜᴇ ᴇxᴏɴ")
+        message.reply_text("ᴛʜɪs ᴜsᴇʀ ɪs ᴀʟʀᴇᴀᴅʏ ᴀ ᴛʀᴜᴇ 02's ᴄʟᴀssᴍᴀᴛᴇ!")
         return ""
 
     data["whitelists"].append(user_id)
@@ -197,7 +197,7 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        f"{rt}\nsᴜᴄᴄᴇssғᴜʟʟʏ ᴘʀᴏᴍᴏᴛᴇᴅ {user_member.first_name} ᴛᴏ ᴀ ʀᴀɴᴋᴇᴅ EXON!"
+        f"{rt}\nsᴜᴄᴄᴇssғᴜʟʟʏ ᴘʀᴏᴍᴏᴛᴇᴅ {user_member.first_name} ᴛᴏ ᴀ ʀᴀɴᴋᴇᴅ ᴛɪɢᴇʀ"
     )
 
     log_message = (
