@@ -139,7 +139,7 @@ I'm ᴀᴍ  ᴀʟɪᴠᴇ  ʙᴀʙʏ !
 buttons = [
     [
         InlineKeyboardButton(
-            text="✨ Add Zero Two To Manage Your Group ✨ ", url=f"t.me/{BOT_USERNAME}?startgroup=true"
+            text="✨ Aᴅᴅ ᴍᴇ ᴛᴏ ᴍᴀɴᴀɢᴇ ʏᴏᴜʀ ɢʀᴏᴜᴘ ✨ ", url=f"t.me/{BOT_USERNAME}?startgroup=true"
         )
     ],
     [
