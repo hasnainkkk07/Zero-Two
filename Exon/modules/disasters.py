@@ -241,7 +241,7 @@ def addtiger(update: Update, context: CallbackContext) -> str:
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        rt += "ᴛʜɪs ᴜsᴇʀ ɪs ᴀʟʀᴇᴀᴅʏ a ᴇxᴏɴ, ᴡᴇ ᴄᴀɴ ʙᴇ ᴄʟᴀssᴍᴀᴛᴇs ᴀs ᴡᴇʟʟ.."
+        rt += "ᴛʜɪs ᴜsᴇʀ ɪs ᴀʟʀᴇᴀᴅʏ a ᴡᴏʟᴠᴇ, ᴡᴇ ᴄᴀɴ ʙᴇ ᴄʟᴀssᴍᴀᴛᴇs ᴀs ᴡᴇʟʟ.."
         data["whitelists"].remove(user_id)
         WOLVES.remove(user_id)
 
