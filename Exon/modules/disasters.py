@@ -386,7 +386,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
             log_message = f"<b>{html.escape(chat.title)}:</b>\n{log_message}"
 
         return log_message
-    message.reply_text("ᴛʜɪs ᴜsᴇʀ ɪs ɴᴏᴛ ᴀ ᴇxᴏɴ!")
+    message.reply_text("ᴛʜɪs ᴜsᴇʀ ɪs ɴᴏᴛ ᴀ ᴄʟᴀssᴍᴀᴛᴇ!")
     return ""
 
 
@@ -431,9 +431,9 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
-    reply = "<b>ᴇxᴏɴ:</b>\n\n"
+    reply = "<b>ᴛɪɢᴇʀ's:</b>\n\n"
     m = update.effective_message.reply_text(
-        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴇxᴏɴ..</code>",
+        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴢᴇʀᴏ ᴛᴡᴏ..</code>",
         parse_mode=ParseMode.HTML,
     )
     bot = context.bot
@@ -452,7 +452,7 @@ def whitelistlist(update: Update, context: CallbackContext):
 def tigerlist(update: Update, context: CallbackContext):
     reply = "<b>Classmates:</b>\n\n"
     m = update.effective_message.reply_text(
-        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴇxᴏɴ ɪǫ.</code>",
+        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴢᴇʀᴏ ᴛᴡᴏ HQ.</code>",
         parse_mode=ParseMode.HTML,
     )
     bot = context.bot
@@ -488,7 +488,7 @@ def supportlist(update: Update, context: CallbackContext):
 def sudolist(update: Update, context: CallbackContext):
     bot = context.bot
     m = update.effective_message.reply_text(
-        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴇxᴏɴ ʜǫ.</code>",
+        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴢᴇʀᴏ ᴛᴡᴏ ʜǫ.</code>",
         parse_mode=ParseMode.HTML,
     )
     true_sudo = list(set(DRAGONS) - set(DEV_USERS))
@@ -507,7 +507,7 @@ def sudolist(update: Update, context: CallbackContext):
 def devlist(update: Update, context: CallbackContext):
     bot = context.bot
     m = update.effective_message.reply_text(
-        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴀʙɪsʜɴᴏɪ HQ..</code>",
+        "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴛʜᴇ sᴜʀᴠᴇʏ ᴄᴏʀᴘs HQ..</code>",
         parse_mode=ParseMode.HTML,
     )
     true_dev = list(set(DEV_USERS) - {OWNER_ID})
@@ -528,7 +528,7 @@ SUPPORT_HANDLER = CommandHandler(
 )
 TIGER_HANDLER = CommandHandler(("addclassmate"), addtiger)
 WHITELIST_HANDLER = CommandHandler(
-    ("EXON", "addwhitelist"), addwhitelist, run_async=True
+    ("02", "addwhitelist"), addwhitelist, run_async=True
 )
 UNSUDO_HANDLER = CommandHandler(
     ("removesudo", "rmbestfriend"), removesudo, run_async=True
@@ -538,10 +538,10 @@ UNSUPPORT_HANDLER = CommandHandler(
 )
 UNTIGER_HANDLER = CommandHandler(("rmclassmate"), removetiger)
 UNWHITELIST_HANDLER = CommandHandler(
-    ("removewhitelist", "rmIGNITE"), removewhitelist, run_async=True
+    ("removewhitelist", "rm02"), removewhitelist, run_async=True
 )
 WHITELISTLIST_HANDLER = CommandHandler(
-    ["whitelistlist", "EXONS"], whitelistlist, run_async=True
+    ["whitelistlist", "02s"], whitelistlist, run_async=True
 )
 TIGERLIST_HANDLER = CommandHandler(["classmates"], tigerlist, run_async=True)
 SUPPORTLIST_HANDLER = CommandHandler(
