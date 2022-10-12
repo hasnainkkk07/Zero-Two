@@ -38,16 +38,10 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 
-import Exon.modules.sql.users_sql as sql
-from Exon import DEMONS as SUPPORT_USERS
-from Exon import DEV_USERS
-from Exon import DRAGONS as SUDO_USERS
-from Exon import INFOPIC, OWNER_ID
+from Exon import INFOPIC
 from Exon import OWNER_USERNAME as AKBOSS
-from Exon import TIGERS
-from Exon import WOLVES as WHITELIST_USERS
-from Exon import StartTime, dispatcher, sw
-from Exon.__main__ import STATS, USER_INFO
+from Exon import StartTime, dispatcher
+from Exon.__main__ import STATS
 from Exon.modules.disable import DisableAbleCommandHandler
 from Exon.modules.helper_funcs.chat_status import sudo_plus, user_admin
 from Exon.modules.helper_funcs.decorators import Exoncmd
