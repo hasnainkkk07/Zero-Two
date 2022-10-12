@@ -278,7 +278,7 @@ def new_member(update: Update, context: CallbackContext):  # sourcery no-metrics
             # Welcome yourself
             elif new_mem.id == bot.id:
                 update.effective_message.reply_text(
-                    "<b>Thanks for adding me to this group!\nPromote me as administrator of the group, to access all my commands.",
+                    "Tʜᴀɴᴋs ғᴏʀ ᴀᴅᴅɪɴɢ ᴍᴇ ᴛᴏ ᴛʜɪs ɢʀᴏᴜᴘ🥳!\nPʀᴏᴍᴏᴛᴇ ᴍᴇ ᴀs ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀ ᴏғ ᴛʜᴇ ɢʀᴏᴜᴘ, ᴛᴏ ᴀᴄᴄᴇss ᴀʟʟ ᴍʏ ᴄᴏᴍᴍᴀɴᴅs😎",
                     reply_to_message_id=reply,
                 )
                 continue
