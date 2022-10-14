@@ -118,15 +118,8 @@ PM_START_TEX = """
 """
 
 PM_START_TEXT = """
-*ʜᴇʟʟᴏ {} !*
-ᴢᴇʀᴏ ᴛᴡᴏ ɪꜱ ᴀ ɢʀᴏᴜᴘ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ʙᴏᴛ ᴡʜɪᴄʜ ᴄᴀɴ ʜᴇʟᴘ ʏᴏᴜ ᴛᴏ ᴍᴀɴᴀɢᴇ ᴀɴᴅ ꜱᴇᴄᴜʀᴇ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴡɪᴛʜ ʜᴜɢᴇ ɢʀᴏᴜᴘ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ᴘʟᴜɢɪɴꜱ ʟɪᴋᴇ ; *ꜰɪʟᴛᴇʀꜱ* , *ɴᴏᴛᴇꜱ* , *ᴡᴇʟᴄᴏᴍᴇ* , *ɢᴏᴏᴅ ʙʏᴇ* , *ʙᴀɴɴɪɴɢ* , *ᴍᴜᴛɪɴɢ*, *ʟᴏᴄᴋs* ᴀɴᴅ ᴍᴀɴʏ ᴍᴏʀᴇ.
-*ᴄʟɪᴄᴋ ᴏɴ 💡Help and Commands📚 ᴛᴏ ʟᴇᴀʀɴ ᴍᴏʀᴇ!*
-   
-            ✦  *ᴜᴘᴛɪᴍᴇ :* `{}` 
-            ➣  *ᴜsᴇʀs :* `{}`
-            ➢  *ᴄʜᴀᴛs :* `0{}`
-            
-Aᴅᴅ ᴍᴇ ᴛᴏ ᴀ ɢʀᴏᴜᴘ ᴛᴏ ᴍᴀɴᴀɢᴇ ᴡɪᴛʜ ᴍʏ ᴘᴏᴡᴇʀs ᴀɴᴅ sᴇᴇ ᴍʏ ᴀʙɪʟɪᴛɪᴇs 
+*𝖧𝖾𝗅𝗅𝗈 {} !*
+➻ 𝖹𝖾𝗋𝗈 𝖳𝗐𝗈 𝖨𝗌 𝖠 𝖦𝗋𝗈𝗎𝗉 𝖬𝖺𝗇𝖺𝗀𝖾𝗆𝖾𝗇𝗍 𝖡𝗈𝗍 𝖶𝗁𝗂𝖼𝗁 𝖢𝖺𝗇 𝖧𝖾𝗅𝗉 𝖸𝗈𝗎 𝖳𝗈 𝖬𝖺𝗇𝖺𝗀𝖾 𝖠𝗇𝖽 𝖲𝖾𝖼𝗎𝗋𝖾 𝖸𝗈𝗎𝗋 𝖦𝗋𝗈𝗎𝗉 𝖶𝗂𝗍𝗁 𝖧𝗎𝗀𝖾 𝖦𝗋𝗈𝗎𝗉 𝖬𝖺𝗇𝖺𝗀𝖾𝗆𝖾𝗇𝗍 𝖯𝗅𝗎𝗀𝗂𝗇𝗌[๏](https://te.legra.ph/file/f074c3fb7992177dd53dc.jpg). 
 """
 
 
@@ -139,11 +132,11 @@ I'm ᴀᴍ  ᴀʟɪᴠᴇ  ʙᴀʙʏ !
 buttons = [
     [
         InlineKeyboardButton(
-            text="✨ Aᴅᴅ ᴍᴇ ᴛᴏ ᴍᴀɴᴀɢᴇ ʏᴏᴜʀ ɢʀᴏᴜᴘ ✨ ", url=f"t.me/{BOT_USERNAME}?startgroup=true"
+            text="✨ Aᴅᴅ Mᴇ Tᴏ Mᴀɴᴀɢᴇ Yᴏᴜʀ Gʀᴏᴜᴘ ✨ ", url=f"t.me/{BOT_USERNAME}?startgroup=true"
         )
     ],
     [
-        InlineKeyboardButton(text=" 💡Help and Commands📚", callback_data="help_back"),
+        InlineKeyboardButton(text=" 📚𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌", callback_data="help_back"),
         InlineKeyboardButton(text="💬Support Group", url=f"https://t.me/{SUPPORT_CHAT}"),
     ],
 ]
