@@ -170,6 +170,7 @@ if ENV:
         "STRING_SESSION"
     )  # Telethon Based String Session (2nd ID) [ From https://repl.it/@SpEcHiDe/GenerateStringSession ]
     APP_ID = os.environ.get("APP_ID")  # 2nd ID
+    APP_HASH = os.environ.get("APP_HASH")  # 2nd ID
     UPDATES_CHANNEL = os.environ.get(
         "UPDATES_CHANNEL", None
     )  # Updates channel for bot (Use @AbishnoiMF instead of t.me//example)
