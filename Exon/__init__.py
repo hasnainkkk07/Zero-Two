@@ -47,6 +47,7 @@ from redis import StrictRedis
 from telegram import Chat
 from telegraph import Telegraph
 from telethon import TelegramClient
+from telethon.sessions import StringSession
 from telethon.sessions import MemorySession
 
 from Exon.utils import dict_error as hex
@@ -165,6 +166,9 @@ if ENV:
     SUPPORT_CHAT = os.environ.get(
         "SUPPORT_CHAT", None
     )  # Support Chat Group Link (Use @AbishnoiMF || Dont Use https://t.me/AbishnoiMF)
+    STRING_SESSION = os.environ.get(
+        "STRING_SESSION"
+    )  # Telethon Based String Session (2nd ID) [ From https://repl.it/@SpEcHiDe/GenerateStringSession ]
     UPDATES_CHANNEL = os.environ.get(
         "UPDATES_CHANNEL", None
     )  # Updates channel for bot (Use @AbishnoiMF instead of t.me//example)
@@ -267,6 +271,7 @@ else:
     OPENWEATHERMAP_ID = Config.OPENWEATHERMAP_ID
     APP_ID = Config.APP_ID
     APP_HASH2 = Config.APP_HASH
+    STRING_SESSION = Config.STRING_SESSION
     GENIUS_API_TOKEN = Config.GENIUS_API_TOKEN
     # YOUTUBE_API_KEY = Config.YOUTUBE_API_KEY
     HELP_IMG = Config.HELP_IMG
