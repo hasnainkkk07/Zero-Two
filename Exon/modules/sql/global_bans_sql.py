@@ -1,32 +1,7 @@
-"""
-MIT License
-
-Copyright (c) 2022 Aʙɪsʜɴᴏɪ
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
 import threading
 
-from sqlalchemy import BigInteger, Boolean, Column, String, UnicodeText
-
 from Exon.modules.sql import BASE, SESSION
+from sqlalchemy import Boolean, Column, BigInteger, String, UnicodeText
 
 
 class GloballyBannedUsers(BASE):
@@ -41,10 +16,14 @@ class GloballyBannedUsers(BASE):
         self.reason = reason
 
     def __repr__(self):
-        return "<ɢʙᴀɴɴᴇᴅ ᴜsᴇʀ {} ({})>".format(self.name, self.user_id)
+        return "<GBanned User {} ({})>".format(self.name, self.user_id)
 
     def to_dict(self):
-        return {"user_id": self.user_id, "name": self.name, "reason": self.reason}
+        return {
+            "user_id": self.user_id,
+            "name": self.name,
+            "reason": self.reason
+        }
 
 
 class GbanSettings(BASE):
@@ -57,7 +36,7 @@ class GbanSettings(BASE):
         self.setting = enabled
 
     def __repr__(self):
-        return "<ɢʙᴀɴ sᴇᴛᴛɪɴɢ {} ({})>".format(self.chat_id, self.setting)
+        return "<Gban setting {} ({})>".format(self.chat_id, self.setting)
 
 
 GloballyBannedUsers.__table__.create(checkfirst=True)
@@ -161,7 +140,9 @@ def num_gbanned_users():
 def __load_gbanned_userid_list():
     global GBANNED_LIST
     try:
-        GBANNED_LIST = {x.user_id for x in SESSION.query(GloballyBannedUsers).all()}
+        GBANNED_LIST = {
+            x.user_id for x in SESSION.query(GloballyBannedUsers).all()
+        }
     finally:
         SESSION.close()
 
@@ -170,7 +151,9 @@ def __load_gban_stat_list():
     global GBANSTAT_LIST
     try:
         GBANSTAT_LIST = {
-            x.chat_id for x in SESSION.query(GbanSettings).all() if not x.setting
+            x.chat_id
+            for x in SESSION.query(GbanSettings).all()
+            if not x.setting
         }
     finally:
         SESSION.close()
