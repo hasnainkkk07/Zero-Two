@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from Exon import pbot as app
+from Exon import ubot as app
 from Exon.utils.errors import capture_err
 from Exon.Extras.dbfunctions import get_couple, save_couple
 from pyrogram import filters
