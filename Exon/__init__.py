@@ -367,7 +367,7 @@ print("[ᴇxᴏɴ]: ᴄᴏɴɴᴇᴄᴛɪɴɢ ᴛᴏ ᴇxᴏɴ • PostgreSQL �
 ubot = TelegramClient(StringSession(STRING_SESSION), APP_ID, APP_HASH)
 # Pyrogram CLient
 print("[INFO]: INITIALIZING PYROGRAM CLIENT")
-pbot = Client("ShikimoriPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+pbot = Client("ExonPyro", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 print("[INFO]: PYROGRAM CLIENT INITIALIZED")
 print("[ᴇxᴏɴ]: ᴄᴏɴɴᴇᴄᴛɪɴɢ ᴛᴏ ᴇxᴏɴ • ᴜsᴇʀʙᴏᴛ (t.me/AbishnoiMF)")
 timeout = httpx.Timeout(40)
