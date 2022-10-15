@@ -26,7 +26,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from Exon import ubot as app
 from Exon.utils.errors import capture_err
-from Exon.Extras.dbfunctions import get_couple, save_couple
+from Exon.modules.mongo.couples_mongo import get_couple, save_couple
 from pyrogram import filters
 import random
 from datetime import datetime
