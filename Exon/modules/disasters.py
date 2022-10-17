@@ -526,7 +526,7 @@ SUDO_HANDLER = CommandHandler(("addsudo", "addbestfriend"), addsudo, run_async=T
 SUPPORT_HANDLER = CommandHandler(
     ("addsupport", "addfriend"), addsupport, run_async=True
 )
-TIGER_HANDLER = CommandHandler(("addclassmate"), addtiger)
+TIGER_HANDLER = CommandHandler(("addtiger" , "addclassmate"), addtiger)
 WHITELIST_HANDLER = CommandHandler(
     ("02", "addwhitelist"), addwhitelist, run_async=True
 )
@@ -536,7 +536,7 @@ UNSUDO_HANDLER = CommandHandler(
 UNSUPPORT_HANDLER = CommandHandler(
     ("removesupport", "rmfriend"), removesupport, run_async=True
 )
-UNTIGER_HANDLER = CommandHandler(("rmclassmate"), removetiger)
+UNTIGER_HANDLER = CommandHandler(("removetiger" , "rmclassmate"), removetiger)
 UNWHITELIST_HANDLER = CommandHandler(
     ("removewhitelist", "rm02"), removewhitelist, run_async=True
 )
