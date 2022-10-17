@@ -522,33 +522,20 @@ def devlist(update: Update, context: CallbackContext):
     m.edit_text(reply, parse_mode=ParseMode.HTML)
 
 
-SUDO_HANDLER = CommandHandler(("addsudo", "addbestfriend"), addsudo, run_async=True)
-SUPPORT_HANDLER = CommandHandler(
-    ("addsupport", "addfriend"), addsupport, run_async=True
-)
-TIGER_HANDLER = CommandHandler(("addtiger" , "addclassmate"), addtiger)
-WHITELIST_HANDLER = CommandHandler(
-    ("02", "addwhitelist"), addwhitelist, run_async=True
-)
-UNSUDO_HANDLER = CommandHandler(
-    ("removesudo", "rmbestfriend"), removesudo, run_async=True
-)
-UNSUPPORT_HANDLER = CommandHandler(
-    ("removesupport", "rmfriend"), removesupport, run_async=True
-)
-UNTIGER_HANDLER = CommandHandler(("removetiger" , "rmclassmate"), removetiger)
-UNWHITELIST_HANDLER = CommandHandler(
-    ("removewhitelist", "rm02"), removewhitelist, run_async=True
-)
-WHITELISTLIST_HANDLER = CommandHandler(
-    ["whitelistlist", "02s"], whitelistlist, run_async=True
-)
-TIGERLIST_HANDLER = CommandHandler(["classmates"], tigerlist, run_async=True)
-SUPPORTLIST_HANDLER = CommandHandler(
-    ["supportlist", "friends"], supportlist, run_async=True
-)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "bestfriends"], sudolist, run_async=True)
-DEVLIST_HANDLER = CommandHandler(["devlist", "devs"], devlist, run_async=True)
+SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport)
+TIGER_HANDLER = CommandHandler(("addtiger"), addtiger)
+WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addwolf"), addwhitelist)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removedragon"), removesudo)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removedemon"), removesupport)
+UNTIGER_HANDLER = CommandHandler(("removetiger"), removetiger)
+UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"), removewhitelist)
+
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "wolves"], whitelistlist)
+TIGERLIST_HANDLER = CommandHandler(["tigers"], tigerlist)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "demons"], supportlist)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "dragons"], sudolist)
+DEVLIST_HANDLER = CommandHandler(["devlist", "devs"], devlist)
 
 
 dispatcher.add_handler(SUDO_HANDLER)
