@@ -122,9 +122,6 @@ def info(update: Update, context: CallbackContext):  # sourcery no-metrics
     if hasattr(user, "type") and user.type != "private":
         text = get_chat_info(user)
         is_chat = True
-    else:
-        text = get_user_info(chat, user)
-        is_chat = False
 
     if INFOPIC:
         if is_chat:
