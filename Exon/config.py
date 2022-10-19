@@ -90,9 +90,7 @@ class Config(object):
     WORKERS = 8
     BAN_STICKER = ""
     ALLOW_EXCL = True
-    CASH_API_KEY = "VQ45LFKYPMJ2LKIU
-
-"
+    CASH_API_KEY = "VQ45LFKYPMJ2LKIU"
     TIME_API_KEY = "65G8ZKE6050P"
     WALL_API = "F-OFF"
     AI_API_KEY = "LOVEYOU"
