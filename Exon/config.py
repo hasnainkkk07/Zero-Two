@@ -38,23 +38,23 @@ def get_user_list(config, key):
 class Config(object):
     LOGGER = True
 
-    API_ID = "983922"
-    API_HASH = "SMSMSMSAKAMAKA"
-    APP_ID = "953922"  # 2nd API_ID
-    APP_HASH = "funssnAjsjaSJns82AjajU"  # 2ns API_HASH
-    ARQ_API_KEY = "TENRCY-KDKSK-MSMSM-OXQYYO-ARQ"
-    BOT_ID = "5408158735"
-    TOKEN = "5458182410:KINGABISHNOI-UM"
-    OWNER_ID = "1452219013"
+    API_ID = "13715737"
+    API_HASH = "9b5ff18e133fed80f0f6cd7bf30cffdd"
+    APP_ID = "13715737"  # 2nd API_ID
+    APP_HASH = "9b5ff18e133fed80f0f6cd7bf30cffdd"  # 2ns API_HASH
+    ARQ_API_KEY = "HOYQOV-EYTKTC-RLELMG-IPFLVH-ARQ"
+    BOT_ID = "5372584050"
+    TOKEN = "5372584050:AAFLZtWstTJds_b4qCyNAHaYvbiVKQ_-BG8"
+    OWNER_ID = "2033411815"
     OPENWEATHERMAP_ID = "22322"
-    OWNER_USERNAME = "Abishnoi1M"
-    BOT_USERNAME = "Exon_Robot"
+    OWNER_USERNAME = "Jean_Uchiha"
+    BOT_USERNAME = "@Zero_Two_Music_Bot"
     SUPPORT_CHAT = "AbishnoiMF"
     UPDATES_CHANNEL = "Abishnoi_bots"
     SUPPORT_CHANNEL = "Abishnoi_bots"
-    JOIN_LOGGER = "-1001497222182"
-    EVENT_LOGS = "-1001497222182"
-    ERROR_LOGS = "-1001497222182"
+    JOIN_LOGGER = "-1001825712994"
+    EVENT_LOGS = "-1001843609198"
+    ERROR_LOGS = "-1001843609198"
 
     SQLALCHEMY_DATABASE_URI = ""
     DB_URL = ""
@@ -90,8 +90,10 @@ class Config(object):
     WORKERS = 8
     BAN_STICKER = ""
     ALLOW_EXCL = True
-    CASH_API_KEY = "NAI H BRO"
-    TIME_API_KEY = "ABISHNOI"
+    CASH_API_KEY = "VQ45LFKYPMJ2LKIU
+
+"
+    TIME_API_KEY = "65G8ZKE6050P"
     WALL_API = "F-OFF"
     AI_API_KEY = "LOVEYOU"
     BL_CHATS = []
@@ -101,7 +103,7 @@ class Config(object):
     TEMP_DOWNLOAD_DIRECTORY = "./"
     HEROKU_APP_NAME = ""
     HEROKU_API_KEY = ""
-    REM_BG_API_KEY = "LSdLgCceYz8vNqFgJVzrkDgR"
+    REM_BG_API_KEY = "PxCe5v4ZX3RmoQnPdDzf2TTz"
     LASTFM_API_KEY = "FMLODA"
     CF_API_KEY = "KISS"
     BL_CHATS = []
@@ -110,9 +112,9 @@ class Config(object):
     PHOTO = "https://telegra.ph/file/14d1f98500af1132e5460.jpg"
     HELP_IMG = "https://telegra.ph/file/14d1f98500af1132e5460.jpg"
     START_IMG = "https://telegra.ph/file/14d1f98500af1132e5460.jpg"
-    TIME_API_KEY = "5LB4TAKPEKZ0"
+    TIME_API_KEY = "65G8ZKE6050P"
     INFOPIC = False
-    GENIUS_API_TOKEN = "28jwoKAkskaSjsnsksAjnwjUJwj"
+    GENIUS_API_TOKEN = "p1r3mTfeLP9-NkFGA1EVkPKgVyj9v0LvWIkx4v8SPT34hNjAum3q3ASM78HtnfoK"
 
 
 class Production(Config):
