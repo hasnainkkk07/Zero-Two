@@ -106,7 +106,7 @@ class Config(object):
     CF_API_KEY = "KISS"
     BL_CHATS = []
     MONGO_PORT = "27017"
-    MONGO_DB = "mongodb+srv://eren:eren@cluster0.yxuwg4r.mongodb.net/?retryWrites=true&w=majority"
+    MONGO_DB = "Levi"
     PHOTO = "https://telegra.ph/file/14d1f98500af1132e5460.jpg"
     HELP_IMG = "https://telegra.ph/file/14d1f98500af1132e5460.jpg"
     START_IMG = "https://telegra.ph/file/14d1f98500af1132e5460.jpg"
