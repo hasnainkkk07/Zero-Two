@@ -192,7 +192,7 @@ if ENV:
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)  # Don't Change
     # BOT_NAME = os.environ.get("BOT_NAME", True)  # Name Of your Bot.4
     BOT_API_URL = os.environ.get("BOT_API_URL", "https://api.telegram.org/bot")
-    MONGO_DB = "mongodb+srv://eren:eren@cluster0.yxuwg4r.mongodb.net/?retryWrites=true&w=majority"
+    MONGO_DB = "Levi"
     GOOGLE_CHROME_BIN = "/usr/bin/google-chrome"
     CHROME_DRIVER = "/usr/bin/chromedriver"
     DB_URI = os.environ.get("DATABASE_URL")
