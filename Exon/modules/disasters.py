@@ -431,7 +431,7 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
-    reply = "<b>ᴛɪɢᴇʀ's:</b>\n\n"
+    reply = "<b>wolves:</b>\n\n"
     m = update.effective_message.reply_text(
         "<code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ ғʀᴏᴍ ᴢᴇʀᴏ ᴛᴡᴏ..</code>",
         parse_mode=ParseMode.HTML,
