@@ -33,10 +33,10 @@ from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
 from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.utils.helpers import mention_html
 
-from Himawari.modules.helper_funcs.filters import CustomFilters
-from Himawari.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
-from Himawari import dispatcher
-from Himawari.modules.log_channel import gloggable
+from Exon.modules.helper_funcs.filters import CustomFilters
+from Exon.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
+from Exon import dispatcher
+from Exon.modules.log_channel import gloggable
 
  
 @user_admin_no_reply
@@ -150,10 +150,10 @@ def list_all_chats(update: Update, context: CallbackContext):
     update.effective_message.reply_text(text, parse_mode="HTML")
 
 __help__ = """
-Chatbot utilizes the Bakufu's Chatbot API which allows Himawari to talk and provide a more interactive group chat experience.
+Chatbot utilizes the Bakufu's Chatbot API which allows *Zero Two* to talk and provide a more interactive group chat experience.
 *Admins only Commands*:
 • /Chatbot*:* Shows chatbot control panel
-*Powered by @BakufuGovt*
+
 """
 
 __mod_name__ = "ChatBot"
