@@ -1,6 +1,6 @@
-HELP_IMG = ["https://telegra.ph/file/2ad7c9d508b26c3cc7c09.jpg"]
+HELP_IMG = ["https://telegra.ph/file/0eea314e1f17fbb08a138.png"]
 
-START_IMG = ["https://telegra.ph/file/2ad7c9d508b26c3cc7c09.jpg"]
+START_IMG = ["https://telegra.ph/file/0eea314e1f17fbb08a138.png"]
 
 
-PHOTO = ["https://telegra.ph/file/2ad7c9d508b26c3cc7c09.jpg"]
+PHOTO = ["https://telegra.ph/file/0eea314e1f17fbb08a138.png"]
