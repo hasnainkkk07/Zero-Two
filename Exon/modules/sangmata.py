@@ -2,13 +2,13 @@
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from Exon import telethn as tbot
-from Exon.events import Asau
+from Exon.events import register
 from Exon import ubot
 from asyncio.exceptions import TimeoutError
 
 
-@Asau(pattern="^/sg ?(.*)")
-@Asau(pattern="^/check_name ?(.*)")
+@register(pattern="^/sg ?(.*)")
+@register(pattern="^/check_name ?(.*)")
 async def lastname(steal):
     steal.pattern_match.group(1)
     puki = await steal.reply("```Retrieving Such User Information..```")
