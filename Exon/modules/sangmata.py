@@ -3,7 +3,7 @@
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from Exon import telethn as tbot
 from Exon.events import Asau
-from Exon import ubot2 as ubot
+from Exon import ubot
 from asyncio.exceptions import TimeoutError
 
 
